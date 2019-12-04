@@ -8,5 +8,12 @@
 <manifest
     package="org.firstinspires.ftc.teamcode"
     xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Allows access to the flashlight -->
+    <permission android:name="android.permission.FLASHLIGHT"
+        android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
+        android:protectionLevel="normal"
+        android:label="@string/permlab_flashlight"
+        android:description="flashlight" />
     <application/>
+
 </manifest>
