@@ -32,7 +32,7 @@ public class Gyro_AutonomousRed_Forward extends LinearOpMode {
     double extenderEncoderValue = 2.6; // 2.7
     double extenderFoundationValue = 4;
     double liftEncoderValue = 1.5;
-    double liftStartOffset = 0.75;
+    double liftStartOffset = 0.8;
     double liftFoundationValue = 1.6;
     double startPos;
     double ap_forwardGrabStone = 72; //70
@@ -122,7 +122,7 @@ public class Gyro_AutonomousRed_Forward extends LinearOpMode {
         // you have now uplifted the arm
 
         if (opModeIsActive()) {
-            controlledDrive.start(27, 0, 0.4); // forward: 23
+            controlledDrive.start(35, 0, 0.4); // forward: 23
             while (!controlledDrive.endReached()) {}
             controlledDrive.stop();
         }
