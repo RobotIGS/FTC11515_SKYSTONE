@@ -86,7 +86,7 @@ public class A5_Red_Foundation_Bridge_Forward extends LinearOpMode {
         // the lift is lifted
 
         if (opModeIsActive()) {
-            controlledDrive.start(85, 0, 0.2);
+            controlledDrive.start(80, 0, 0.2);
             while (!controlledDrive.endReached() && opModeIsActive()) {}
             controlledDrive.stop();
         }

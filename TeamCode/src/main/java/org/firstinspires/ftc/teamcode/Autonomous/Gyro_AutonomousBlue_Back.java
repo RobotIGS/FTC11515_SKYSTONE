@@ -121,7 +121,7 @@ public class Gyro_AutonomousBlue_Back extends LinearOpMode {
         // you have now uplifted the arm
 
         if (opModeIsActive()) {
-            controlledDrive.start(35, 0, 0.4); // forward: 23
+            controlledDrive.start(28, 0, 0.4); // forward: 23
             while (!controlledDrive.endReached()) {}
             controlledDrive.stop();
         }
