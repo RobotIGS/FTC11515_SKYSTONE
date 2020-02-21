@@ -33,7 +33,7 @@ public class Gyro_AutonomousBlue_Forward extends LinearOpMode {
     double extenderFoundationValue = 4;
     double liftEncoderValue = 1.5;
     double liftFoundationValue = 1.6;
-    double liftStartOffset = 0.75;
+    double liftStartOffset = 0.8;
     double startPos;
     double ap_forwardGrabStone = 72; //70
     double smoothnessAdjust = 125;

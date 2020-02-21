@@ -31,7 +31,7 @@ public class A2_Blue_Bridge extends LinearOpMode {
 
     double extenderEncoderValue = 3.5;
     double liftEncoderValue = 1.5;
-    double liftStartOffset = 0.75;
+    double liftStartOffset = 0.8;
     double liftFoundationValue = 1.6;
     double extenderFoundationValue = 4;
     double startPos;

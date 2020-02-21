@@ -32,7 +32,7 @@ public class Gyro_AutonomousRed_Back extends LinearOpMode {
     double extenderEncoderValue = 2.6; // 2.7
     double extenderFoundationValue = 4;
     double liftEncoderValue = 1.5;
-    double liftStartOffset = 0.75;
+    double liftStartOffset = 0.8;
     double liftFoundationValue = 1.6;
     double startPos;
     double ap_forwardGrabStone = 72; //70

@@ -20,6 +20,7 @@ public class HardwareChassis {
     // declare sensors
     public ColorSensor color_front = null;
     public ColorSensor color_back = null;
+    public ColorSensor color_clamp = null;
     public DigitalChannel touch_left = null;
     public DigitalChannel touch_right = null;
 
@@ -81,6 +82,7 @@ public class HardwareChassis {
         //// SENSORS
         this.color_front =    hwMap.get(ColorSensor.class, "hub1_colorport1");
         this.color_back =   hwMap.get(ColorSensor.class, "hub2_colorport1");
+        this.color_clamp = hwMap.get(ColorSensor.class, "hub2_colorport3");
 
         this.touch_left =    hwMap.get(DigitalChannel.class, "hub2_digitalport1");
         this.touch_right =   hwMap.get(DigitalChannel.class, "hub2_digitalport3");
