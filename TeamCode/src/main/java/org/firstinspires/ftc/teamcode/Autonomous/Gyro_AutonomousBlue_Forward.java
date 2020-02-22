@@ -37,6 +37,7 @@ public class Gyro_AutonomousBlue_Forward extends LinearOpMode {
     double startPos;
     double ap_forwardGrabStone = 72; //70
     double smoothnessAdjust = 125;
+    double firstSkystoneOffset = 40;
 
     @Override
     public void runOpMode() {
@@ -49,6 +50,8 @@ public class Gyro_AutonomousBlue_Forward extends LinearOpMode {
         controlledExtender = new ControlledExtender(robot, telemetry);
         orientationTools = new OrientationTools(robot, hardwareMap, this);
         robotGyro = new HardwareChassisGyro(hardwareMap);
+
+        OmniWheel wheel = new OmniWheel(robot);
 
         startPos = orientationTools.getDegree360(robotGyro.imu);
 
@@ -64,22 +67,38 @@ public class Gyro_AutonomousBlue_Forward extends LinearOpMode {
 
         // you lifted the lift up
 
+        if (opModeIsActive()) {
+            orientationTools.driveSidewardEncoder(this,0, firstSkystoneOffset+10, 0.4, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust);
+        }
+
         if (opModeIsActive() ) {
             controlledExtender.start(extenderEncoderValue, 0.6);
             //extend the arm 3.5
             controlledDrive.start(ap_forwardGrabStone, 0, 0.5);
-            while(!controlledDrive.endReached() && opModeIsActive()) {}
+            while (!controlledDrive.endReached() && opModeIsActive()) {
+            }
             controlledDrive.stop();
             //drive forward 65
 
-            while(!controlledExtender.endReached() && opModeIsActive()) {}
+            while (!controlledExtender.endReached() && opModeIsActive()) {
+            }
             controlledExtender.stop();
 
             controlledLift.start(-(liftEncoderValue + liftStartOffset), 0.6);
-            while(!controlledDrive.endReached() && opModeIsActive()) {}
+            while (!controlledDrive.endReached() && opModeIsActive()) {
+            }
             controlledDrive.stop();
             //lowers the lift
+        }
 
+
+        if (opModeIsActive()) {
+            orientationTools.driveSidewaysColor(this,0, -40, -0.1, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust, robot.color_clamp);
+            orientationTools.driveSidewaysRedBlue(this,0, -40, -0.1, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust, robot.color_back);
+            orientationTools.driveSidewardEncoder(this,0, -130, -0.1, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust);
+        }
+
+        if (opModeIsActive()) {
             generalTools.stopForMilliSeconds(500);
             generalTools.closeClamp();
 
@@ -97,7 +116,7 @@ public class Gyro_AutonomousBlue_Forward extends LinearOpMode {
         // you have driven back a few cm
 
         if (opModeIsActive()) {
-            orientationTools.driveSidewardEncoder(this, 0, -235, -0.4, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust); //sideways: 220 --> middle
+            orientationTools.driveSidewardEncoder(this, 0, -235+firstSkystoneOffset+20, -0.4, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust); //sideways: 220 --> middle
         }
 
         if (opModeIsActive()) {
