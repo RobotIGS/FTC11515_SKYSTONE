@@ -129,7 +129,9 @@ public class A5_Blue_Foundation_Bridge extends LinearOpMode {
             orientationTools.driveSidewardEncoder(this, 0, 30, 0.4, omniWheel, startPos, robotGyro.imu, 175, 150); //sideways: 220 --> middle
         }
 
-
+        if (opModeIsActive()){
+            backTillButtons();
+        }
     }
 
     private void backTillButtons() {

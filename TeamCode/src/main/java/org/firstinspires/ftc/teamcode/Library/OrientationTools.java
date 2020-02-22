@@ -188,16 +188,21 @@ public class OrientationTools {
             wheel.setMotors(0,speed,offset/smoothness);
         }
 
+        op.telemetry.addData("i dont know whats wrong",offset);
+        op.telemetry.update();
+
 
         wheel.robot.motor_front_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         wheel.robot.motor_front_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         wheel.robot.motor_rear_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         wheel.robot.motor_rear_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        while(Math.abs(offset)>2 && opMode.opModeIsActive()){
-            offset  = this.getDegree360(imu) - startPos;
-            wheel.setMotors(0,0,offset/smoothnessAdjust);
-        }
+        //while(Math.abs(offset)>2 && opMode.opModeIsActive()){
+        //    op.telemetry.addData("hallo",offset);
+        //    op.telemetry.update();
+         //   offset  = this.getDegree360(imu) - startPos;
+         //   wheel.setMotors(0,0,offset/smoothnessAdjust);
+        //}
         wheel.setMotors(0,0,0);
 
     }
