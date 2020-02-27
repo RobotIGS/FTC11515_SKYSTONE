@@ -30,13 +30,15 @@ public class PlayerControlled extends OpMode {
     @Override
     public void loop() {
         //smoothing value
-        if (gamepad1.right_bumper) {
+        /*
+        if (gamepad1.a) {
             smootingValue = smootingValue+0.05;
-            while (gamepad1.right_bumper){}
-        } else if (gamepad1.left_bumper) {
+            while (gamepad1.a){}
+        } else if (gamepad1.b) {
             smootingValue = smootingValue-0.05;
-            while (gamepad1.left_bumper){}
+            while (gamepad1.b){}
         }
+        */
 
         //driving
         //else if (gamepad1.left_stick_y != 0 || gamepad1.left_stick_x != 0) {
@@ -91,7 +93,7 @@ public class PlayerControlled extends OpMode {
             robot.motor_lift_right.setPower(-gamepad2.left_stick_y);
         }
         // override/ignore upper limit
-        else if (gamepad2.left_stick_y < 0 && gamepad2.b) {
+        else if (gamepad2.left_stick_y < 0 && gamepad2.x) {
             robot.motor_lift_left.setPower(gamepad2.left_stick_y);
             robot.motor_lift_right.setPower(-gamepad2.left_stick_y);
         }
@@ -105,7 +107,7 @@ public class PlayerControlled extends OpMode {
             robot.motor_lift_right.setPower(-gamepad2.left_stick_y);
         }
         // override/ignore lower limit
-        else if (gamepad2.left_stick_y > 0 && gamepad2.b) {
+        else if (gamepad2.left_stick_y > 0 && gamepad2.y) {
             robot.motor_lift_left.setPower(gamepad2.left_stick_y);
             robot.motor_lift_right.setPower(-gamepad2.left_stick_y);
         }
@@ -125,16 +127,16 @@ public class PlayerControlled extends OpMode {
         }
 
         //servo clamp
-        if(gamepad2.y) {
+        if(gamepad2.a) {
             GeneralTools.closeClamp(robot);
-        } else if (gamepad2.x) {
+        } else if (gamepad2.b) {
             GeneralTools.openClamp(robot);
         }
 
         //servos foundation
-        if (gamepad2.right_bumper) { //grab
+        if (gamepad1.right_bumper) { //grab
             GeneralTools.grabFoundation(robot);
-        } else if (gamepad2.left_bumper) { //release
+        } else if (gamepad1.left_bumper) { //release
             GeneralTools.releaseFoundation(robot);
         }
 
