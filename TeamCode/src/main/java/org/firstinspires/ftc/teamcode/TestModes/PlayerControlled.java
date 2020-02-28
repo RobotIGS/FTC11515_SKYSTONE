@@ -118,12 +118,14 @@ public class PlayerControlled extends OpMode {
             robot.motor_lift_right.setPower(0);
         }
         // set new zero-point
-        if (gamepad2.a) {
+        if (gamepad2.x) {
             setZeros();
         }
 
-        if (gamepad2.dpad_up) {
+        if (gamepad2.right_bumper) {
             robot.servo_capstone.setPosition(0.4);
+        } else if (gamepad2.left_bumper) {
+            robot.servo_capstone.setPosition(robot.servo_capstone.getPosition()+0.1);
         }
 
         //servo clamp
