@@ -94,8 +94,7 @@ public class Gyro_AutonomousBlue_Forward extends LinearOpMode {
 
         if (opModeIsActive()) {
             orientationTools.driveSidewaysColor(this,0, -40, -0.1, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust, robot.color_clamp);
-            orientationTools.driveSidewaysRedBlue(this,0, -40, -0.1, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust, robot.color_back);
-            orientationTools.driveSidewardEncoder(this,0, -130, -0.1, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust);
+
         }
 
         if (opModeIsActive()) {
@@ -103,6 +102,7 @@ public class Gyro_AutonomousBlue_Forward extends LinearOpMode {
             generalTools.closeClamp();
 
             generalTools.stopForMilliSeconds(500);
+
         }
 
         // hey... you should have grabbed a stone now...
@@ -111,6 +111,8 @@ public class Gyro_AutonomousBlue_Forward extends LinearOpMode {
             controlledDrive.start(-22, 0, 0.4); //forward -20
             while (!controlledDrive.endReached()) {}
             controlledDrive.stop();
+            orientationTools.driveSidewaysRedBlue(this,0, -40, -0.1, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust, robot.color_back);
+            orientationTools.driveSidewardEncoder(this,0, -130, -0.1, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust);
         }
 
         // you have driven back a few cm

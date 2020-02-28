@@ -51,6 +51,11 @@ public class OrientationTools {
 
         colorTools = new ColorTools();
     }
+    public OrientationTools(HardwareChassis hwchss, HardwareMap hardwareMap) {
+        this.hwchss = hwchss;
+        hwgy = new HardwareChassisGyro(hardwareMap);
+        hwgy.init(hardwareMap);
+    }
 
     /**
      * Used to set all motors at once
