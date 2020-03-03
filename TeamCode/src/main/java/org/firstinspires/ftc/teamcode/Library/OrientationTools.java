@@ -203,7 +203,7 @@ public class OrientationTools {
             //wheel.robot.motor_front_right.setPower(wheelSpeeds[1] * speed + offset/smoothness);
             //wheel.robot.motor_rear_left.setPower(wheelSpeeds[2] * speed + offset/smoothness);
             //wheel.robot.motor_rear_right.setPower(wheelSpeeds[3] * speed + offset/smoothness);
-            op.telemetry.addData("dsfsdf", offset);
+            op.telemetry.addData("DRIVING", offset);
             op.telemetry.update();
             wheel.setMotors(0, speed, offset / smoothness);
         }
@@ -323,6 +323,7 @@ public class OrientationTools {
         wheel.robot.motor_rear_right.setTargetPosition((int) targets[3]);
 
 
+
         //DcMotor.RunMode prevMode = wheel.robot.motor_front_left.getMode();
 
         // Turn On RUN_TO_POSITION
@@ -331,8 +332,8 @@ public class OrientationTools {
         wheel.robot.motor_rear_left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         wheel.robot.motor_rear_right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while ((wheel.robot.motor_front_right.isBusy() && wheel.robot.motor_front_left.isBusy() && wheel.robot.motor_rear_left.isBusy() && (colorTools.isRed(sensor) || colorTools.isBlue(sensor)))) {
-            op.telemetry.addData("Alpha", sensor.alpha());
+        while ((wheel.robot.motor_front_right.isBusy() && wheel.robot.motor_front_left.isBusy() && wheel.robot.motor_rear_left.isBusy() && !(colorTools.isRed(sensor)) || colorTools.isBlue(sensor))) {
+            op.telemetry.addData("ISBLUEORRED", colorTools.isRed(sensor) || colorTools.isBlue(sensor));
             op.telemetry.update();
             offset = this.getDegree360(imu) - startPos;
             // reset the timeout time and start motion.
@@ -356,4 +357,66 @@ public class OrientationTools {
         wheel.setMotors(0, 0, 0);
 
     }
+
+    public void driveEncoder(OpMode op, double distanceForward, double distanceSideways, double speed, OmniWheel wheel, double startPos, BNO055IMU imu, double smoothness, double smoothnessAdjust) {
+        double offset = this.getDegree360(imu) - startPos;
+
+        while (Math.abs(offset) > 2 && opMode.opModeIsActive()) {
+            offset = this.getDegree360(imu) - startPos;
+            wheel.setMotors(0, 0, offset / smoothnessAdjust);
+        }
+        wheel.setMotors(0, 0, 0);
+
+
+        double maxDistance = Math.max(Math.abs(distanceForward), Math.abs(distanceSideways));
+
+        double[] wheelSpeeds = OmniWheel.calculate(WHEEL_DIAMETER_CMS / 2, 38, 24, distanceForward / maxDistance, distanceSideways / maxDistance, 0);
+
+        // Determine new target position
+        double[] targets = {
+                wheel.robot.motor_front_left.getCurrentPosition() + wheelSpeeds[0] * (COUNTS_PER_CM * maxDistance),
+                wheel.robot.motor_front_right.getCurrentPosition() + wheelSpeeds[1] * (COUNTS_PER_CM * maxDistance),
+                wheel.robot.motor_rear_left.getCurrentPosition() + wheelSpeeds[2] * (COUNTS_PER_CM * maxDistance),
+                wheel.robot.motor_rear_right.getCurrentPosition() + wheelSpeeds[3] * (COUNTS_PER_CM * maxDistance)};
+        // And pass to motor controller
+        wheel.robot.motor_front_left.setTargetPosition((int) targets[0]);
+        wheel.robot.motor_front_right.setTargetPosition((int) targets[1]);
+        wheel.robot.motor_rear_left.setTargetPosition((int) targets[2]);
+        wheel.robot.motor_rear_right.setTargetPosition((int) targets[3]);
+
+
+        //DcMotor.RunMode prevMode = wheel.robot.motor_front_left.getMode();
+
+        // Turn On RUN_TO_POSITION
+        wheel.robot.motor_front_left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        wheel.robot.motor_front_right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        wheel.robot.motor_rear_left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        wheel.robot.motor_rear_right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        while (wheel.robot.motor_front_right.isBusy() && wheel.robot.motor_front_left.isBusy() && wheel.robot.motor_rear_left.isBusy() && wheel.robot.motor_rear_right.isBusy()) {
+            offset = this.getDegree360(imu) - startPos;
+            // reset the timeout time and start motion.
+            //wheel.robot.motor_front_left.setPower(wheelSpeeds[0] * speed + offset/smoothness);
+            //wheel.robot.motor_front_right.setPower(wheelSpeeds[1] * speed + offset/smoothness);
+            //wheel.robot.motor_rear_left.setPower(wheelSpeeds[2] * speed + offset/smoothness);
+            //wheel.robot.motor_rear_right.setPower(wheelSpeeds[3] * speed + offset/smoothness);
+            op.telemetry.addData("dsfsdf", offset);
+            op.telemetry.update();
+            wheel.setMotors(0, speed, offset / smoothness);
+        }
+
+
+        wheel.robot.motor_front_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        wheel.robot.motor_front_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        wheel.robot.motor_rear_left.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        wheel.robot.motor_rear_right.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        while (Math.abs(offset) > 2 && opMode.opModeIsActive()) {
+            offset = this.getDegree360(imu) - startPos;
+            wheel.setMotors(0, 0, offset / smoothnessAdjust);
+        }
+        wheel.setMotors(0, 0, 0);
+
+    }
+
 }

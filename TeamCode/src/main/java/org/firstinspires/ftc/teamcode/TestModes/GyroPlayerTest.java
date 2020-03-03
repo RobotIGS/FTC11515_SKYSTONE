@@ -54,7 +54,7 @@ public class GyroPlayerTest extends OpMode {
         gyro = new HardwareGyro(hardwareMap);
         gyro.init(hardwareMap);
 
-        smoothness = 180;
+        smoothness = 100;
         posTodrive = oTool.getDegree360(gyro.imu);
         offset = posTodrive -oTool.getDegree360(gyro.imu);
 
@@ -74,27 +74,31 @@ public class GyroPlayerTest extends OpMode {
 
         oWheel.setMotors(power_Y*0.5,power_X*0.5,offset/smoothness);
         //-----------------------------------------------------------------------------------
-        if(adjust && (System.currentTimeMillis() -timestamp1)> 400){
+        if((System.currentTimeMillis() -timestamp1 > 500) && adjust){
             posTodrive = oTool.getDegree360(gyro.imu);
+            adjust = false;
         }
-        else{
+
+        if(System.currentTimeMillis() -timestamp1 > 500){
             offset = oTool.getDegree360(gyro.imu) - posTodrive;}
+        else{
+            offset = 0;}
 
 
         if(gamepad1.right_trigger != 0) {
             while(gamepad1.right_trigger != 0){
                 oWheel.setMotors(0,0,-gamepad1.right_trigger);
-                timestamp1 = System.currentTimeMillis();
-                adjust = true;
             }
+            adjust = true;
+            timestamp1 = System.currentTimeMillis();
             //posTodrive = oTool.getDegree360(gyro.imu);
         }
         if(gamepad1.left_trigger !=0) {
             while(gamepad1.left_trigger !=0){
                 oWheel.setMotors(0,0,gamepad1.left_trigger);
-                timestamp1 = System.currentTimeMillis();
-                adjust = true;
             }
+            adjust = true;
+            timestamp1 = System.currentTimeMillis();
             //posTodrive = oTool.getDegree360(gyro.imu);
         }
         //-----------------------------------------------------------------------------------

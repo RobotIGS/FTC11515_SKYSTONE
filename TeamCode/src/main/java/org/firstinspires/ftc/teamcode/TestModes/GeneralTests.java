@@ -15,6 +15,7 @@ public class GeneralTests extends OpMode {
     HardwareGyro gyro;
     HardwareChassis robot;
     ColorTools ctools;
+
     @Override
     public void init() {
         robot = new HardwareChassis(hardwareMap);
@@ -26,8 +27,8 @@ public class GeneralTests extends OpMode {
     @Override
     public void loop() {
 
-        telemetry.addData("alpha",robot.color_clamp.alpha());
-        telemetry.addData("found",ctools.isSkystoneFound(robot.color_clamp));
+        telemetry.addData("BLUE",ctools.isBlue(robot.color_back));
+        telemetry.addData("RED",ctools.isRed(robot.color_back));
         telemetry.update();
     }
 }
