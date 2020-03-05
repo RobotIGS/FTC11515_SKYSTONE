@@ -38,6 +38,9 @@ public class GyroPlayerTest extends OpMode {
     double timestamp2;
     double timestamp3;
 
+
+    boolean turning
+
     //-------------------------------
 
     double smootingValue;
@@ -59,6 +62,7 @@ public class GyroPlayerTest extends OpMode {
         offset = posTodrive -oTool.getDegree360(gyro.imu);
 
         adjust = true;
+        turning = false;
 
         super.msStuckDetectLoop = 10000000;
     }
@@ -72,35 +76,41 @@ public class GyroPlayerTest extends OpMode {
             offset = posTodrive -oTool.getDegree360(gyro.imu);
         }
 
-        oWheel.setMotors(power_Y*0.5,power_X*0.5,offset/smoothness);
-        //-----------------------------------------------------------------------------------
         if((System.currentTimeMillis() -timestamp1 > 500) && adjust){
             posTodrive = oTool.getDegree360(gyro.imu);
             adjust = false;
         }
 
-        if(System.currentTimeMillis() -timestamp1 > 500){
+        if((System.currentTimeMillis() -timestamp1 > 500) && gamepad1.right_trigger == 0){
             offset = oTool.getDegree360(gyro.imu) - posTodrive;}
         else{
             offset = 0;}
 
 
+
+
         if(gamepad1.right_trigger != 0) {
-            while(gamepad1.right_trigger != 0){
-                oWheel.setMotors(0,0,-gamepad1.right_trigger);
-            }
+            offset = -gamepad1.right_trigger * smoothness;
             adjust = true;
             timestamp1 = System.currentTimeMillis();
             //posTodrive = oTool.getDegree360(gyro.imu);
         }
         if(gamepad1.left_trigger !=0) {
-            while(gamepad1.left_trigger !=0){
-                oWheel.setMotors(0,0,gamepad1.left_trigger);
-            }
+            offset = gamepad1.right_trigger * smoothness;
             adjust = true;
             timestamp1 = System.currentTimeMillis();
             //posTodrive = oTool.getDegree360(gyro.imu);
         }
+
+
+        oWheel.setMotors(power_Y*0.5,power_X*0.5,offset/smoothness);
+
+
+        //-----------------------------------------------------------------------------------
+
+
+
+
         //-----------------------------------------------------------------------------------
         //power_X = (double)(gamepad1.right_trigger*(gamepad1.left_stick_x/Math.max(Math.abs(gamepad1.left_stick_x),Math.abs(gamepad1.left_stick_y)+0.001)));
         //power_Y = -(double)(gamepad1.right_trigger*(gamepad1.left_stick_y/Math.max(Math.abs(gamepad1.left_stick_x),Math.abs(gamepad1.left_stick_y)+0.001)));
@@ -212,6 +222,30 @@ public class GyroPlayerTest extends OpMode {
     public void setZeros() {
         liftZeros[0] = robot.motor_lift_left.getCurrentPosition();
         liftZeros[1] = robot.motor_lift_right.getCurrentPosition();
+    }
+
+
+    private void placeholer(){
+        if(gamepad1.right_trigger != 0) {
+            while(gamepad1.right_trigger != 0){
+                oWheel.setMotors(0,0,-gamepad1.right_trigger);
+            }
+            adjust = true;
+            timestamp1 = System.currentTimeMillis();
+            //posTodrive = oTool.getDegree360(gyro.imu);
+        }
+        if(gamepad1.left_trigger !=0) {
+            while(gamepad1.left_trigger !=0){
+                oWheel.setMotors(0,0,gamepad1.left_trigger);
+            }
+            adjust = true;
+            timestamp1 = System.currentTimeMillis();
+            //posTodrive = oTool.getDegree360(gyro.imu);
+        }
+
+
+
+
     }
 }
 
