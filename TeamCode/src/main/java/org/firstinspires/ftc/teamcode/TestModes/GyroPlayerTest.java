@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Library.OmniWheel;
 import org.firstinspires.ftc.teamcode.Library.OrientationTools;
 
 //by Lena and Simeon
-
+@Disabled
 @TeleOp(name = "GyroPlayerTest")
 
 public class GyroPlayerTest extends OpMode {

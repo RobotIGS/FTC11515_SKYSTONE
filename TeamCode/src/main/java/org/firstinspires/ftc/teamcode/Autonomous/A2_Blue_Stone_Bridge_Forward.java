@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Library.Movement.ControlledLift;
 import org.firstinspires.ftc.teamcode.Library.OmniWheel;
 import org.firstinspires.ftc.teamcode.Library.OrientationTools;
 
-
+@Disabled
 @Autonomous (name = "A2_Blue_Stone_Bridge_Forward")
 
 public class A2_Blue_Stone_Bridge_Forward extends LinearOpMode {
