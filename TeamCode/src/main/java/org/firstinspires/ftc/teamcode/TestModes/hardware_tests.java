@@ -3,25 +3,21 @@ package org.firstinspires.ftc.teamcode.TestModes;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassis;
-import org.firstinspires.ftc.teamcode.Library.ColorTools;
 
 @TeleOp (name = "Hardware_Tests")
 public class hardware_tests extends OpMode {
     HardwareMap hwChss = hardwareMap;
     HardwareChassis robot;
-    ColorTools colorTools;
     //Servo servo_c = null;
 
     @Override
     public void init() {
         robot = new HardwareChassis(hardwareMap);
-        colorTools = new ColorTools();
         //servo_c = hardwareMap.get(Servo.class, "c_servo_hub1_port1");
 
         //TO DO: Neue Hardwaremap für Robot erstellen!!
@@ -62,10 +58,6 @@ public class hardware_tests extends OpMode {
             robot.motor_lift_right.setPower(0);
             robot.motor_front_right.setPower(0);
         }
-
-        telemetry.addData("Skystone", colorTools.isSkystoneFound(robot.color_clamp));
-        telemetry.addData("Alpha: ", robot.color_clamp.alpha());
-        telemetry.update();
     }
 
 }

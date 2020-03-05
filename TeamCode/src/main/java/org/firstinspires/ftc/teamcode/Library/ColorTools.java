@@ -31,14 +31,6 @@ public class ColorTools {
 
     boolean isColorChangend;
 
-    public boolean isSkystoneFound(ColorSensor alphaSensor) {
-        if (alphaSensor.alpha() <= 2) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public boolean isColor(ColorEnum color_enum, ColorSensor colorSensor) {
         if(color_enum.equals(ColorEnum.Blue)) return isBlue(colorSensor);
         return isRed(colorSensor);

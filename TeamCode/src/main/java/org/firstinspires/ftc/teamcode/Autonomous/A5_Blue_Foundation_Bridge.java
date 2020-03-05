@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Library.Movement.ControlledLift;
 import org.firstinspires.ftc.teamcode.Library.OmniWheel;
 import org.firstinspires.ftc.teamcode.Library.OrientationTools;
 
-@Disabled
+
 @Autonomous (name = "A5_Blue_Foundation_Bridge")
 public class A5_Blue_Foundation_Bridge extends LinearOpMode {
 
