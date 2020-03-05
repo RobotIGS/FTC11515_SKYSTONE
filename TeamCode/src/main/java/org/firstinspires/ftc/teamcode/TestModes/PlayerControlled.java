@@ -77,7 +77,7 @@ public class PlayerControlled extends OpMode {
             adjust = false;
         }
 
-        if((System.currentTimeMillis() -timestamp1 > 500) && gamepad1.right_trigger == 0){
+        if((System.currentTimeMillis() -timestamp1 > 500) && (gamepad1.right_trigger == 0 || gamepad1.left_trigger ==0)){
             offset = oTool.getDegree360(gyro.imu) - posTodrive;}
         else{
             offset = 0;}
@@ -92,7 +92,7 @@ public class PlayerControlled extends OpMode {
             //posTodrive = oTool.getDegree360(gyro.imu);
         }
         if(gamepad1.left_trigger !=0) {
-            offset = gamepad1.right_trigger * smoothness;
+            offset = gamepad1.left_trigger * smoothness;
             adjust = true;
             timestamp1 = System.currentTimeMillis();
             //posTodrive = oTool.getDegree360(gyro.imu);
