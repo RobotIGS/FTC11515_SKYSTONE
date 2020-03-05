@@ -29,14 +29,15 @@ public class Gyro_AutonomousBlue_Back extends LinearOpMode {
     OrientationTools orientationTools;
     HardwareChassisGyro robotGyro;
 
-    double extenderEncoderValue = 2.6; // 2.7
+    double extenderEncoderValue = 3; // 2.7
     double extenderFoundationValue = 4;
     double liftEncoderValue = 1.5;
     double liftFoundationValue = 1.6;
     double liftStartOffset = 0.8;
     double startPos;
     double ap_forwardGrabStone = 72; //70
-    double smoothnessAdjust = 125;
+    double smoothnessAdjust = 50;
+    double firstSkystoneOffset = 50;
 
     @Override
     public void runOpMode() {
@@ -50,6 +51,8 @@ public class Gyro_AutonomousBlue_Back extends LinearOpMode {
         orientationTools = new OrientationTools(robot, hardwareMap, this);
         robotGyro = new HardwareChassisGyro(hardwareMap);
 
+        OmniWheel wheel = new OmniWheel(robot);
+
         startPos = orientationTools.getDegree360(robotGyro.imu);
 
         waitForStart();
@@ -57,33 +60,49 @@ public class Gyro_AutonomousBlue_Back extends LinearOpMode {
         if (opModeIsActive()) {
             generalTools.openClamp();
             generalTools.releaseFoundation();
-            controlledLift.start(liftFoundationValue,0.6);
+            controlledLift.start(liftFoundationValue,0.8);
             while (!controlledLift.endReached()) {}
             controlledLift.stop();
         }
 
         // you lifted the lift up
 
+        if (opModeIsActive()) {
+            orientationTools.driveSidewardEncoder(this,0, firstSkystoneOffset, 0.6, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust);
+        }
+
         if (opModeIsActive() ) {
-            controlledExtender.start(extenderEncoderValue, 0.6);
+            controlledExtender.start(extenderEncoderValue, 0.8);
             //extend the arm 3.5
             controlledDrive.start(ap_forwardGrabStone, 0, 0.5);
-            while(!controlledDrive.endReached() && opModeIsActive()) {}
+            while (!controlledDrive.endReached() && opModeIsActive()) {
+            }
             controlledDrive.stop();
             //drive forward 65
 
-            while(!controlledExtender.endReached() && opModeIsActive()) {}
+            while (!controlledExtender.endReached() && opModeIsActive()) {
+            }
             controlledExtender.stop();
 
-            controlledLift.start(-(liftEncoderValue + liftStartOffset), 0.6);
-            while(!controlledDrive.endReached() && opModeIsActive()) {}
+            controlledLift.start(-(liftEncoderValue + liftStartOffset), 0.8);
+            while (!controlledDrive.endReached() && opModeIsActive()) {
+            }
             controlledDrive.stop();
             //lowers the lift
+        }
 
+
+        if (opModeIsActive()) {
+            orientationTools.driveSidewaysColor(this,0, -60, -0.3, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust, robot.color_clamp);
+
+        }
+
+        if (opModeIsActive()) {
             generalTools.stopForMilliSeconds(500);
             generalTools.closeClamp();
 
             generalTools.stopForMilliSeconds(500);
+
         }
 
         // hey... you should have grabbed a stone now...
@@ -92,13 +111,13 @@ public class Gyro_AutonomousBlue_Back extends LinearOpMode {
             controlledDrive.start(-22, 0, 0.4); //forward -20
             while (!controlledDrive.endReached()) {}
             controlledDrive.stop();
+
+            orientationTools.driveSidewaysRedBlue(this,0, -130, -0.6, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust, robot.color_back);
+            //generalTools.wait(2000);
+            orientationTools.driveSidewardEncoder(this,0, -90, -0.6, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust);
         }
 
         // you have driven back a few cm
-
-        if (opModeIsActive()) {
-            orientationTools.driveSidewardEncoder(this, 0, -235, -0.4, omniWheel, startPos, robotGyro.imu, 175, smoothnessAdjust); //sideways: 220 --> middle
-        }
 
         if (opModeIsActive()) {
             omniWheel.setMotors(0, 0, 0);
@@ -107,7 +126,7 @@ public class Gyro_AutonomousBlue_Back extends LinearOpMode {
         // you are now on the other side of the bridge
 
         if (opModeIsActive()) {
-            controlledExtender.start(extenderFoundationValue, 0.6);
+            controlledExtender.start(extenderFoundationValue, 0.8);
             while (!controlledExtender.endReached()) {}
             controlledExtender.stop();
         }
@@ -166,17 +185,20 @@ public class Gyro_AutonomousBlue_Back extends LinearOpMode {
         }
 
         if (opModeIsActive()) {
-            controlledLift.start(-liftFoundationValue, 0.6); //distance 0.5
-            generalTools.closeClamp();
+            controlledLift.start(-liftFoundationValue, 0.8); //distance 0.5
             while(!controlledLift.endReached() && opModeIsActive()) {}
             controlledLift.stop();
 
         }
 
+        if (opModeIsActive()) {
+            generalTools.closeClamp();
+        }
+
         // you have now lifted the lift down
 
         if (opModeIsActive()) {
-            controlledExtender.start(-extenderFoundationValue, 0.6);
+            controlledExtender.start(-extenderFoundationValue, 0.8);
             while(!controlledExtender.endReached() && opModeIsActive()) {}
             controlledExtender.stop();
         }
