@@ -14,9 +14,9 @@ import org.firstinspires.ftc.teamcode.Library.OmniWheel;
 import org.firstinspires.ftc.teamcode.Library.OrientationTools;
 
 
-@Autonomous(name = "Autonomous_Gyro_Red_Forward")
+@Autonomous(name = "Autonomous_Gyro_Blue_Forward")
 
-public class Gyro_AutonomousRed_Forward extends LinearOpMode {
+public class Skystone_AutonomousBlue_Forward extends LinearOpMode {
 
     HardwareChassis robot;
     ColorTools colorTools;
@@ -67,7 +67,7 @@ public class Gyro_AutonomousRed_Forward extends LinearOpMode {
         // you lifted the lift up
 
         if (opModeIsActive()) {
-            orientationTools.driveSidewardEncoder(this,0, -firstSkystoneOffset, -0.6, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust);
+            orientationTools.driveSidewardEncoder(this,0, firstSkystoneOffset, 0.6, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust);
         }
 
         if (opModeIsActive() ) {
@@ -92,7 +92,7 @@ public class Gyro_AutonomousRed_Forward extends LinearOpMode {
 
 
         if (opModeIsActive()) {
-            orientationTools.driveSidewaysSkystone(this,0, 60, 0.3, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust, robot.color_clamp);
+            orientationTools.driveSidewaysSkystone(this,0, -60, -0.3, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust, robot.color_clamp);
 
         }
 
@@ -111,11 +111,12 @@ public class Gyro_AutonomousRed_Forward extends LinearOpMode {
             while (!controlledDrive.endReached()) {}
             controlledDrive.stop();
 
-            // you have driven back a few cm
-            orientationTools.driveSidewaysRedBlue(this,0, 130, 0.6, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust, robot.color_back);
-
-            orientationTools.driveSidewardEncoder(this,0, 90, 0.6, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust);
+            orientationTools.driveSidewaysRedBlue(this,0, -130, -0.6, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust, robot.color_back);
+            //generalTools.wait(2000);
+            orientationTools.driveSidewardEncoder(this,0, -90, -0.6, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust);
         }
+
+        // you have driven back a few cm
 
         if (opModeIsActive()) {
             omniWheel.setMotors(0, 0, 0);
@@ -172,7 +173,7 @@ public class Gyro_AutonomousRed_Forward extends LinearOpMode {
 
         if (opModeIsActive()) {
             if (opModeIsActive()) {
-                orientationTools.driveSidewardEncoder(this, 0, -90, -0.4, omniWheel, startPos, robotGyro.imu, 200, smoothnessAdjust);
+                orientationTools.driveSidewardEncoder(this, 0, 90, 0.4, omniWheel, startPos, robotGyro.imu, 200, smoothnessAdjust);
             }
         }
 
@@ -213,10 +214,11 @@ public class Gyro_AutonomousRed_Forward extends LinearOpMode {
 
         if (opModeIsActive()) {
             if (opModeIsActive()) {
-                orientationTools.driveSidewardEncoder(this, 0, -50, -0.4, omniWheel, startPos, robotGyro.imu, 175, smoothnessAdjust);
+                orientationTools.driveSidewardEncoder(this, 0, 50, 0.4, omniWheel, startPos, robotGyro.imu, 175, smoothnessAdjust);
             }
         }
 
         //you are now parked under the bridge at B3/B4
+
     }
 }
