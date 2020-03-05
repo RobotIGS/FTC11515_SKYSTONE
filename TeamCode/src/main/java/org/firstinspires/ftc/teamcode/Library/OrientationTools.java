@@ -222,7 +222,7 @@ public class OrientationTools {
 
     }
 
-    public void driveSidewaysColor(OpMode op, double distanceForward, double distanceSideways, double speed, OmniWheel wheel, double startPos, BNO055IMU imu, double smoothness, double smoothnessAdjust, ColorSensor sensor) {
+    public void driveSidewaysSkystone(OpMode op, double distanceForward, double distanceSideways, double speed, OmniWheel wheel, double startPos, BNO055IMU imu, double smoothness, double smoothnessAdjust, ColorSensor sensor) {
         double offset = this.getDegree360(imu) - startPos;
 
         while (Math.abs(offset) > 2 && opMode.opModeIsActive()) {

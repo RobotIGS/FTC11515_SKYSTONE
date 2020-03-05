@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassis;
@@ -93,7 +92,7 @@ public class Gyro_AutonomousBlue_Forward extends LinearOpMode {
 
 
         if (opModeIsActive()) {
-            orientationTools.driveSidewaysColor(this,0, -60, -0.3, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust, robot.color_clamp);
+            orientationTools.driveSidewaysSkystone(this,0, -60, -0.3, omniWheel, startPos, robotGyro.imu, 147, smoothnessAdjust, robot.color_clamp);
 
         }
 
