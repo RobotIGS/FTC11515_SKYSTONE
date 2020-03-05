@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Library.Movement.ControlledLift;
 import org.firstinspires.ftc.teamcode.Library.OmniWheel;
 import org.firstinspires.ftc.teamcode.Library.OrientationTools;
 
-
+@Disabled
 @Autonomous (name = "A2_Red_Stone_Bridge_Forward")
 
 public class A2_Red_Stone_Bridge_Forward extends LinearOpMode {
@@ -32,7 +32,7 @@ public class A2_Red_Stone_Bridge_Forward extends LinearOpMode {
     double extenderEncoderValue = 3.5;
     double extenderFoundationValue = 4;
     double liftEncoderValue = 1.5;
-    double liftStartOffset = 0.75;
+    double liftStartOffset = 0.8;
     double liftFoundationValue = 1.6;
     double startPos;
 
