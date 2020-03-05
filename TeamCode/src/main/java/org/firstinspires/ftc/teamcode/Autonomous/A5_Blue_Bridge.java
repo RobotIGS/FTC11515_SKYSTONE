@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Library.Movement.ControlledLift;
 import org.firstinspires.ftc.teamcode.Library.OmniWheel;
 import org.firstinspires.ftc.teamcode.Library.OrientationTools;
 
-
+@Disabled
 @Autonomous (name =  "A5_Blue_Bridge")
 
 public class A5_Blue_Bridge extends LinearOpMode {
@@ -35,8 +35,6 @@ public class A5_Blue_Bridge extends LinearOpMode {
     double liftStartOffset = 0.8;
     double extenderFoundationValue = 4;
     double startPos;
-
-
 
     @Override
     public void runOpMode() {

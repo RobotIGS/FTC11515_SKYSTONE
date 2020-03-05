@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.HardwareMaps.HardwareChassis;
@@ -14,11 +12,8 @@ import org.firstinspires.ftc.teamcode.Library.Movement.ControlledLift;
 import org.firstinspires.ftc.teamcode.Library.OmniWheel;
 import org.firstinspires.ftc.teamcode.Library.OrientationTools;
 
-@Disabled
-@Autonomous (name =  "A2_Red_Bridge")
-
-public class A2_Red_Bridge extends LinearOpMode {
-
+public class AutonomBlueGyroFinalForeward extends LinearOpMode
+{
     HardwareChassis robot;
     ColorTools colorTools;
     ControlledDrive controlledDrive;
@@ -29,18 +24,12 @@ public class A2_Red_Bridge extends LinearOpMode {
     OrientationTools orientationTools;
     HardwareChassisGyro robotGyro;
 
-    double extenderEncoderValue = 3.5;
-    double liftEncoderValue = 1.5;
-    double liftStartOffset = 0.8;
-    double extenderFoundationValue = 4;
+
+
     double liftFoundationValue = 1.6;
     double startPos;
-
-
-
     @Override
-    public void runOpMode() {
-
+    public void runOpMode() throws InterruptedException {
         colorTools = new ColorTools();
         robot = new HardwareChassis(hardwareMap);
         controlledDrive = new ControlledDrive(robot, telemetry);
@@ -56,35 +45,13 @@ public class A2_Red_Bridge extends LinearOpMode {
 
         waitForStart();
 
-        if (opModeIsActive()){
-            generalTools.releaseFoundation();
-        }
-
         if (opModeIsActive()) {
-            controlledLift.start(liftFoundationValue,0.2);
+            generalTools.openClamp();
+            generalTools.releaseFoundation();
+            controlledLift.start(liftFoundationValue,0.6);
             while (!controlledLift.endReached()) {}
             controlledLift.stop();
         }
 
-        // you have noe uplifted the lift
-
-        if (opModeIsActive()){
-            controlledExtender.start(extenderEncoderValue,0.4);
-            while (!controlledExtender.endReached()) {}
-            controlledExtender.stop();
-            controlledLift.start(-(liftEncoderValue + liftStartOffset),0.2);
-            while (!controlledLift.endReached()) {}
-            controlledLift.stop();
-        }
-
-        // you have now lowered the lift and pulled out the arm
-
-        if (opModeIsActive()){
-            orientationTools.driveSidewardEncoder(this, 0, generalTools.bcap_underBridge, 0.6, omniWheel, startPos, robotGyro.imu, 175, 150);
-        }
-
-        // you are now below the bridge
     }
-
-
 }
