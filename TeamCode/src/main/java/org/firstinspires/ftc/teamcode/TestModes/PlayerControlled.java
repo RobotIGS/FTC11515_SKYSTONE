@@ -110,55 +110,6 @@ public class PlayerControlled extends OpMode {
 
         //------------------------------------------------------------------------------------------------------------
 
-        /*
-        //smoothing value
-        if (gamepad1.right_bumper) {
-            smootingValue = smootingValue+0.05;
-            while (gamepad1.right_bumper){}
-        } else if (gamepad1.left_bumper) {
-            smootingValue = smootingValue-0.05;
-            while (gamepad1.left_bumper){}
-        }
-        */
-
-        /*
-        //driving
-        if (gamepad1.left_stick_y != 0 || gamepad1.left_stick_x != 0) {
-        double[] result = OmniWheel.calculate(
-                5.0,
-                38,
-                24,
-                GeneralTools.calculateControllerSmooting(-gamepad1.left_stick_y, smootingValue)*0.5,
-                GeneralTools.calculateControllerSmooting(gamepad1.left_stick_x, smootingValue)*0.5,
-                GeneralTools.calculateControllerSmooting(-gamepad1.right_trigger + gamepad1.left_trigger, smootingValue)); //gamepad1.right_stick_x*-0.2
-
-        robot.motor_front_left.setPower(result[0]);
-        robot.motor_front_right.setPower(result[1]);
-        robot.motor_rear_left.setPower(result[2]);
-        robot.motor_rear_right.setPower(result[3]);
-        }
-
-         */
-    /*
-        //turning
-        if (gamepad1.right_trigger > 0) {
-            robot.motor_rear_right.setPower(-gamepad1.right_trigger*0.5);
-            robot.motor_front_right.setPower(-gamepad1.right_trigger*0.5);
-            robot.motor_rear_left.setPower(-gamepad1.right_trigger*0.5);
-            robot.motor_front_left.setPower(-gamepad1.right_trigger*0.5);
-        } else if (gamepad1.left_trigger > 0) {
-            robot.motor_rear_right.setPower(gamepad1.left_trigger*0.5);
-            robot.motor_front_right.setPower(gamepad1.left_trigger*0.5);
-            robot.motor_rear_left.setPower(gamepad1.left_trigger*0.5);
-            robot.motor_front_left.setPower(gamepad1.left_trigger*0.5);
-        } else {
-            robot.motor_rear_right.setPower(0);
-            robot.motor_rear_left.setPower(0);
-            robot.motor_front_right.setPower(0);
-            robot.motor_front_left.setPower(0);
-        }
-        */
-
         //extender
         if (gamepad2.right_stick_y > 0 || gamepad2.right_stick_y < 0) {
             robot.motor_extender.setPower(-gamepad2.right_stick_y);
@@ -220,9 +171,9 @@ public class PlayerControlled extends OpMode {
         }
 
         //servos foundation
-        if (gamepad2.right_bumper) { //grab
+        if (gamepad1.right_bumper) { //grab
             GeneralTools.grabFoundation(robot);
-        } else if (gamepad2.left_bumper) { //release
+        } else if (gamepad1.left_bumper) { //release
             GeneralTools.releaseFoundation(robot);
         }
 
@@ -232,16 +183,16 @@ public class PlayerControlled extends OpMode {
         //telemetry.addData("Ärmchen R:", robot.servo_claw_right.getPosition());
         //telemetry.addData("Ärmchen L:", robot.servo_claw_left.getPosition());
         //telemetry.addLine();
-        telemetry.addData("Touch Left: ", robot.touch_left.getState());
-        telemetry.addData("Touch Right: ", robot.touch_right.getState());
+        //telemetry.addData("Touch Left: ", robot.touch_left.getState());
+        //telemetry.addData("Touch Right: ", robot.touch_right.getState());
         //telemetry.addLine();
         //telemetry.addData("H: ", colorTools.showHSV(robot.color_back)[0]);
         //telemetry.addData("S: ", colorTools.showHSV(robot.color_back)[1]);
-        telemetry.addLine();
-        telemetry.addData("LiftLpos: ", (robot.motor_lift_left.getCurrentPosition() - liftZeros[0]) / 712.6);
-        telemetry.addData("LiftRpos: ", (robot.motor_lift_right.getCurrentPosition() - liftZeros[1]) / 712.6);
-        telemetry.addData("ExtenderPos", robot.motor_extender.getCurrentPosition()/195.4);
-        telemetry.update();
+        //telemetry.addLine();
+        //telemetry.addData("LiftLpos: ", (robot.motor_lift_left.getCurrentPosition() - liftZeros[0]) / 712.6);
+        //telemetry.addData("LiftRpos: ", (robot.motor_lift_right.getCurrentPosition() - liftZeros[1]) / 712.6);
+        //telemetry.addData("ExtenderPos", robot.motor_extender.getCurrentPosition()/195.4);
+        //telemetry.update();
     }
 
     public void setZeros() {
