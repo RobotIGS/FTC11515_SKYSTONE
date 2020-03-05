@@ -39,7 +39,7 @@ public class GyroPlayerTest extends OpMode {
     double timestamp3;
 
 
-    boolean turning
+    boolean turning;
 
     //-------------------------------
 
