@@ -72,40 +72,47 @@ public class PlayerControlled extends OpMode {
             offset = posTodrive -oTool.getDegree360(gyro.imu);
         }
 
-        oWheel.setMotors(power_Y*0.5,power_X*0.5,offset/smoothness);
-        //-----------------------------------------------------------------------------------
         if((System.currentTimeMillis() -timestamp1 > 500) && adjust){
             posTodrive = oTool.getDegree360(gyro.imu);
             adjust = false;
         }
 
-        if(System.currentTimeMillis() -timestamp1 > 500){
+        if((System.currentTimeMillis() -timestamp1 > 500) && gamepad1.right_trigger == 0){
             offset = oTool.getDegree360(gyro.imu) - posTodrive;}
         else{
             offset = 0;}
 
 
+
+
         if(gamepad1.right_trigger != 0) {
-            while(gamepad1.right_trigger != 0){
-                oWheel.setMotors(0,0,-gamepad1.right_trigger);
-            }
+            offset = -gamepad1.right_trigger * smoothness;
             adjust = true;
             timestamp1 = System.currentTimeMillis();
             //posTodrive = oTool.getDegree360(gyro.imu);
         }
         if(gamepad1.left_trigger !=0) {
-            while(gamepad1.left_trigger !=0){
-                oWheel.setMotors(0,0,gamepad1.left_trigger);
-            }
+            offset = gamepad1.right_trigger * smoothness;
             adjust = true;
             timestamp1 = System.currentTimeMillis();
             //posTodrive = oTool.getDegree360(gyro.imu);
         }
+
+
+        oWheel.setMotors(power_Y*0.5,power_X*0.5,offset/smoothness);
+
+
+        //-----------------------------------------------------------------------------------
+
+
+
+
         //-----------------------------------------------------------------------------------
         //power_X = (double)(gamepad1.right_trigger*(gamepad1.left_stick_x/Math.max(Math.abs(gamepad1.left_stick_x),Math.abs(gamepad1.left_stick_y)+0.001)));
         //power_Y = -(double)(gamepad1.right_trigger*(gamepad1.left_stick_y/Math.max(Math.abs(gamepad1.left_stick_x),Math.abs(gamepad1.left_stick_y)+0.001)));
         power_X = gamepad1.left_stick_x;
         power_Y = -gamepad1.left_stick_y;
+
 
 
         //------------------------------------------------------------------------------------------------------------
