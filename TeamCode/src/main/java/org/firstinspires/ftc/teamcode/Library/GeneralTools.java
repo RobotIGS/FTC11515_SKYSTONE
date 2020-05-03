@@ -71,7 +71,7 @@ public class GeneralTools {
     }
 
     public static void openClamp(HardwareChassis robot) {
-        robot.servo_grab.setPosition(0.2);
+        robot.servo_grab.setPosition(0.4);
     }
 
 
